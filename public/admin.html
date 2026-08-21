@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Gaming Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-center bg-slate-800 p-6 rounded-xl border border-slate-700">
+            <div>
+                <h1 class="text-2xl font-bold text-white">Admin Dashboard</h1>
+                <p class="text-xs text-slate-400">Eingeloggt als: <strong class="text-yellow-500">Reblix</strong></p>
+            </div>
+            <div class="flex gap-4">
+                <a href="/" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-xs font-bold px-4 py-2 rounded-lg transition">Website ansehen</a>
+                <a href="/api/logout" class="bg-red-600 hover:bg-red-500 text-xs font-bold px-4 py-2 rounded-lg transition">Abmelden</a>
+            </div>
+        </div>
+
+        <!-- 1. FORMULAR: TOP 4 HAUPT-AFFILIATE LINKS BEARBEITEN -->
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+            <h2 class="text-lg font-bold mb-4 text-yellow-500">1. Haupt-Affiliate Links der 4 Anbieter ändern</h2>
+            <form id="topOffersForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">LDPlayer Haupt-Link</label>
+                        <input type="url" id="top_LDPlayer" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Plarium Haupt-Link</label>
+                        <input type="url" id="top_Plarium" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Impact Haupt-Link</label>
+                        <input type="url" id="top_Impact" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Eneba Haupt-Link</label>
+                        <input type="url" id="top_Eneba" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+                    </div>
+                </div>
+                <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold px-6 py-2.5 rounded-lg transition text-sm">
+                    Haupt-Links Speichern
+                </button>
+            </form>
+        </div>
+
+        <!-- 2. FORMULAR: NEUES SPIEL HINZUFÜGEN -->
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+            <h2 id="formTitle" class="text-lg font-bold mb-4 text-yellow-500">2. Neues Spiel / Angebot einer Plattform hinzufügen</h2>
+            
+            <form id="productForm" class="space-y-4">
+                <input type="hidden" id="editId">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Anbieter / Plattform wählen</label>
+                        <select id="provider" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+                            <option value="LDPlayer">LDPlayer (Emulator)</option>
+                            <option value="Plarium">Plarium (PC & Mobile Games)</option>
+                            <option value="Impact">Impact (Hardware & Deals)</option>
+                            <option value="Eneba">Eneba (Keys & Guthaben)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Titel des Spiels / Angebots</label>
+                        <input type="text" id="title" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Beschreibung</label>
+                    <textarea id="description" required rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Bild URL / Bild-Link</label>
+                    <input type="url" id="image" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="https://images.unsplash.com/...">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Affiliate Link für dieses Spiel</label>
+                    <input type="url" id="link" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white" value="https://leap.ldplayer.gg/T4VV05TOl">
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold px-6 py-2.5 rounded-lg transition">Spiel Speichern & Veröffentlichen</button>
+                    <button type="button" id="cancelBtn" onclick="resetForm()" class="hidden bg-slate-700 hover:bg-slate-600 px-6 py-2.5 rounded-lg transition">Abbrechen</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- LISTE ALLER SPIELE -->
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+            <h2 class="text-lg font-bold mb-4 text-white">Aktuelle Angebote in der Liste</h2>
+            <div id="productList" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <script>
+        async function checkAuth() {
+            const res = await fetch('/api/auth-status');
+            const data = await res.json();
+            if (!data.loggedIn) window.location.href = '/login.html';
+        }
+
+        async function loadAdminData() {
+            const res = await fetch('/api/data');
+            const data = await res.json();
+
+            // 1. Haupt-Links laden
+            if (data.topOffers) {
+                document.getElementById('top_LDPlayer').value = data.topOffers.LDPlayer || '';
+                document.getElementById('top_Plarium').value = data.topOffers.Plarium || '';
+                document.getElementById('top_Impact').value = data.topOffers.Impact || '';
+                document.getElementById('top_Eneba').value = data.topOffers.Eneba || '';
+            }
+
+            // 2. Produktliste laden
+            renderProducts(data.products || []);
+        }
+
+        // Hauptlinks speichern
+        document.getElementById('topOffersForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const topOffers = {
+                LDPlayer: document.getElementById('top_LDPlayer').value,
+                Plarium: document.getElementById('top_Plarium').value,
+                Impact: document.getElementById('top_Impact').value,
+                Eneba: document.getElementById('top_Eneba').value
+            };
+
+            await fetch('/api/admin/top-offers', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topOffers })
+            });
+
+            alert('Haupt-Affiliate-Links erfolgreich aktualisiert!');
+            loadAdminData();
+        });
+
+        // Produkte rendern
+        function renderProducts(products) {
+            const list = document.getElementById('productList');
+
+            if (products.length === 0) {
+                list.innerHTML = `<p class="text-slate-400 text-sm">Keine Einträge vorhanden.</p>`;
+                return;
+            }
+
+            list.innerHTML = products.map(p => `
+                <div class="bg-slate-900 p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-slate-700">
+                    <img src="${p.image}" class="w-20 h-16 object-cover rounded">
+                    <div class="flex-1">
+                        <span class="inline-block bg-yellow-500/20 text-yellow-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase mb-1">${p.provider}</span>
+                        <h3 class="font-bold text-white">${p.title}</h3>
+                        <p class="text-xs text-slate-400">${p.description}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editProduct('${p.id}', '${p.provider}', '${escapeHtml(p.title)}', '${escapeHtml(p.description)}', '${p.image}', '${p.link}')" class="bg-blue-600 hover:bg-blue-500 text-xs px-3 py-1.5 rounded">Bearbeiten</button>
+                        <button onclick="deleteProduct('${p.id}')" class="bg-red-600 hover:bg-red-500 text-xs px-3 py-1.5 rounded">Löschen</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        // Produkt Speichern / Hinzufügen
+        document.getElementById('productForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+
+            const productData = {
+                provider: document.getElementById('provider').value,
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                image: document.getElementById('image').value,
+                link: document.getElementById('link').value
+            };
+
+            const url = id ? `/api/admin/products/${id}` : '/api/admin/products';
+            const method = id ? 'PUT' : 'POST';
+
+            await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(productData)
+            });
+
+            resetForm();
+            loadAdminData();
+        });
+
+        function editProduct(id, provider, title, description, image, link) {
+            document.getElementById('editId').value = id;
+            document.getElementById('provider').value = provider || 'LDPlayer';
+            document.getElementById('title').value = title;
+            document.getElementById('description').value = description;
+            document.getElementById('image').value = image;
+            document.getElementById('link').value = link;
+
+            document.getElementById('formTitle').innerText = 'Produkt bearbeiten';
+            document.getElementById('cancelBtn').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('editId').value = '';
+            document.getElementById('productForm').reset();
+            document.getElementById('formTitle').innerText = '2. Neues Spiel / Angebot einer Plattform hinzufügen';
+            document.getElementById('cancelBtn').classList.add('hidden');
+        }
+
+        async function deleteProduct(id) {
+            if (confirm('Produkt wirklich löschen?')) {
+                await fetch(`/api/admin/products/${id}`, { method: 'DELETE' });
+                loadAdminData();
+            }
+        }
+
+        checkAuth();
+        loadAdminData();
+    </script>
+</body>
+</html>

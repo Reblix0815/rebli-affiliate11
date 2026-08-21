@@ -1,0 +1,42 @@
+{
+  "topOffers": {
+    "LDPlayer": "https://leap.ldplayer.gg/T4VV05TOl",
+    "Plarium": "https://leap.ldplayer.gg/T4VV05TOl",
+    "Impact": "https://leap.ldplayer.gg/T4VV05TOl",
+    "Eneba": "https://leap.ldplayer.gg/T4VV05TOl"
+  },
+  "products": [
+    {
+      "id": "1",
+      "provider": "LDPlayer",
+      "title": "PUBG Mobile auf PC spielen",
+      "description": "Genieße PUBG Mobile in 120 FPS, erstklassiger Tastatur-Steuerung und ohne Ruckler.",
+      "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=80",
+      "link": "https://leap.ldplayer.gg/T4VV05TOl"
+    },
+    {
+      "id": "2",
+      "provider": "Plarium",
+      "title": "RAID: Shadow Legends",
+      "description": "Sammle hunderte Champions und erlebe epische RPG-Schlachten kostenlos am PC.",
+      "image": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&auto=format&fit=crop&q=80",
+      "link": "https://leap.ldplayer.gg/T4VV05TOl"
+    },
+    {
+      "id": "3",
+      "provider": "Impact",
+      "title": "Razer Gaming Hardware Deals",
+      "description": "Sichere dir bis zu 30% Rabatt auf präzise Gaming-Mäuse, Tastaturen und Headsets.",
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=800&auto=format&fit=crop&q=80",
+      "link": "https://leap.ldplayer.gg/T4VV05TOl"
+    },
+    {
+      "id": "4",
+      "provider": "Eneba",
+      "title": "Fortnite V-Bucks & Gift Cards",
+      "description": "Kaufe Guthabenkarten und Game-Keys mit bis zu 20% Rabatt.",
+      "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop&q=80",
+      "link": "https://leap.ldplayer.gg/T4VV05TOl"
+    }
+  ]
+}
